@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
     public int totalTrials;
     private Trial[] trials;
     private int currentTrial;
-    private GameObject gameText;
+    private Text gameText;
 
     private enum GameState
     {
@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        gameText = GameObject.Find("GameText");
+        gameText = GameObject.Find("GameText").GetComponent<Text>();
         trials = new Trial[totalTrials];
 	}
 	
@@ -37,6 +37,18 @@ public class GameController : MonoBehaviour {
             case GameState.WAITING_FOR_COLOR:
                 break;
             case GameState.WAITING_NEXT_TRIAL:
+                if (currentTrial > totalTrials)
+                {
+                    _gameState = GameState.TEST_COMPLETE;
+                    break;
+                }
+                if (Input.GetButton("NextTrial")) {
+                    gameText.text = colors[Random.Range(0, colors.Length)];
+                    string colorStr = colors[Random.Range(0, colors.Length)];
+                    gameText.color = parseColor(colorStr);
+                    _gameState = GameState.WAITING_FOR_COLOR;
+                    break;
+                }
                 break;
             case GameState.TEST_COMPLETE:
                 break;
@@ -45,6 +57,12 @@ public class GameController : MonoBehaviour {
         }
 	
 	}
+    private Color parseColor(string color)
+    {
+        if (color == "red") { return Color.red; }
+        else if (color == "green") { return Color.green; }
+        return Color.blue;
+    }
 
     private void setUpGame()
     {
