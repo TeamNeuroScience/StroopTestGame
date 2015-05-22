@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public struct Trial
+{
+    float reactionTime;
+    int trialNumber;
+}
+
 public class GameController : MonoBehaviour {
 
     public string[] colors;
