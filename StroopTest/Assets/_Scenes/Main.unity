@@ -184,6 +184,7 @@ MonoBehaviour:
   - red
   - green
   - yellow
+  totalTrials: 0
 --- !u!4 &147706597
 Transform:
   m_ObjectHideFlags: 0

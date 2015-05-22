@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
     public string[] colors;
     public int totalTrials;
     private Trial[] trials;
+    private int currentTrial;
     private GameObject gameText;
 
     private enum GameState
@@ -31,6 +32,17 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        switch (_gameState)
+        {
+            case GameState.WAITING_FOR_COLOR:
+                break;
+            case GameState.WAITING_NEXT_TRIAL:
+                break;
+            case GameState.TEST_COMPLETE:
+                break;
+            default:
+                break;
+        }
 	
 	}
 
@@ -39,6 +51,7 @@ public class GameController : MonoBehaviour {
         System.Array.Clear(trials, 0, totalTrials);
         gameText.GetComponent<Text>().text = "";
         _gameState = GameState.WAITING_FOR_COLOR;
+        currentTrial = 0;
     }
 
 	//Functions to fade user interface in and out.
@@ -53,7 +66,7 @@ public class GameController : MonoBehaviour {
 			yield return null;
 		}
 	}
-	
+
 	IEnumerator fadeOut(GameObject obj, float speed) {
 		float increment;
 		CanvasGroup cv = obj.GetComponent<CanvasGroup>();
