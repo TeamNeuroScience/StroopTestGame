@@ -1011,7 +1011,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=red>S</color><color=yellow>T</color><color=green>R</color><color=red>O</color><color=red>O</color><color=green>P</color>
+  m_Text: <color=red>S</color><color=blue>T</color><color=green>R</color><color=red>O</color><color=red>O</color><color=green>P</color>
     <color=white>Test</color>
 --- !u!222 &1979914843
 CanvasRenderer:
