@@ -126,6 +126,29 @@ public class GameController : MonoBehaviour {
         }
 	
 	}
+
+    //Get average reaction time. Precondition: all tests have been complete
+    private float GetAverageReaction() {
+        int totalReaction = 0;
+        foreach (Trial trial in trials)
+        {
+            if (trial.reactionTime > 0)
+            {
+                totalReaction += trial.reactionTime;
+            }
+        }
+        return totalReaction / totalTrials;
+    }
+
+    private float GetCorrectnessPercentage() {
+        int correctCount = 0;
+        foreach(Trial trial in trials)
+        {
+            if (trial.isCorrect) correctCount++;
+        }
+        return correctCount * 100 / totalTrials;
+    }
+
     private Color parseColor(string color)
     {
         if (color == "red") { return Color.red; }
