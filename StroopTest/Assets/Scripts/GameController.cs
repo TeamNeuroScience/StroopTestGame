@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public struct Trial
 {
-    float reactionTime;
-    int trialNumber;
-    bool isSameWord; //Indicates whether word matches the color
+    public float reactionTime;
+    public int trialNumber;
+    public bool isSameWordAsColor; //Indicates whether word matches the color
 }
 
 public class GameController : MonoBehaviour {
@@ -77,10 +77,16 @@ public class GameController : MonoBehaviour {
                         gameText.color = Color.red;
                     }
                     //Show reaction time as an integer of miliseconds that passed since the beginning of the trial
-                    gameText.text += "RectionTime:" + ((int)((System.DateTime.Now - trialStartTime).TotalMilliseconds)).ToString() + " ms";
+                    int reactionTime = (int)(System.DateTime.Now - trialStartTime).TotalMilliseconds;
+                    gameText.text += "RectionTime:" + reactionTime.ToString() + " ms";
                     _gameState = GameState.WAITING_NEXT_TRIAL;
+                    trials[currentTrial].trialNumber = currentTrial;
+                    trials[currentTrial].reactionTime = reactionTime;
+                    currentTrial++;
                 }
                 break;
+
+
             case GameState.WAITING_NEXT_TRIAL:
                 if (currentTrial > totalTrials)
                 {
@@ -93,13 +99,22 @@ public class GameController : MonoBehaviour {
                     gameText.color = parseColor(colorStr);
                     _gameState = GameState.WAITING_FOR_ANSWER;
                     trialStartTime = System.DateTime.Now;
+                    trials[currentTrial].isSameWordAsColor = gameText.text == colorStr;
                     break;
                 }
                 break;
+
+            case GameState.TEST_BEGINS:
+
+                break;
             case GameState.TEST_COMPLETE:
                 break;
+
+
             case GameState.INACTIVE:
                 break;
+
+
             default:
                 break;
         }
