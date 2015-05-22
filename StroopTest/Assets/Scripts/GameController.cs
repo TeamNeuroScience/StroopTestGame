@@ -115,6 +115,13 @@ public class GameController : MonoBehaviour {
         currentTrial = 0;
     }
 
+    public void onClickNewTest()
+    {
+        StartCoroutine(fadeIn(gameCanvas, 2.0f));
+        StartCoroutine(fadeOut(menuCanvas, 2.0f));
+        _gameState = GameState.WAITING_NEXT_TRIAL;
+    }
+
 	//Functions to fade user interface in and out.
 	IEnumerator fadeIn(GameObject obj, float speed) {
 		float increment;
