@@ -208,6 +208,7 @@ GameObject:
   - 223: {fileID: 152666026}
   - 114: {fileID: 152666025}
   - 114: {fileID: 152666024}
+  - 225: {fileID: 152666027}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: Untagged
@@ -290,6 +291,17 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!225 &152666027
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 152666022}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &192276928
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +819,7 @@ GameObject:
   - 223: {fileID: 451434975}
   - 114: {fileID: 451434974}
   - 114: {fileID: 451434973}
+  - 225: {fileID: 451434976}
   m_Layer: 5
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -891,6 +904,17 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!225 &451434976
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 451434971}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &508089294
 GameObject:
   m_ObjectHideFlags: 0
