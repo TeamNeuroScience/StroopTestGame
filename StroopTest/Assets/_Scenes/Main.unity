@@ -114,6 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b72fe6b9f7ae064d8d23002470df381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors:
+  - red
+  - green
+  - yellow
 --- !u!4 &147706597
 Transform:
   m_ObjectHideFlags: 0

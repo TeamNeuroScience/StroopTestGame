@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
+    public string[] colors;
+
 	// Use this for initialization
 	void Start () {
 	
