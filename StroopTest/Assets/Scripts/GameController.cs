@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     private Trial[] trials;
     private int currentTrial;
     private Text gameText;
+    private System.DateTime trialStartTime; //Start time for a given trial. Used to measure reaction time
 
     private enum GameState
     {
@@ -35,6 +36,33 @@ public class GameController : MonoBehaviour {
         switch (_gameState)
         {
             case GameState.WAITING_FOR_COLOR:
+                string inputColor = "";
+                if (Input.GetButton("red"))
+                {
+                    inputColor = "red";
+                } else if (Input.GetButton("green"))
+                {
+                    inputColor = "green";
+                }
+                 else if (Input.GetButton("blue"))
+                {
+                    inputColor = "blue";
+                }
+                if (inputColor != "")
+                {
+                    if (inputColor == gameText.color.ToString())
+                    {
+                        gameText.text = "Correct!\n";
+                        gameText.color = Color.green;
+                    }
+                    else
+                    {
+                        gameText.text = "Incorrect!\n";
+                        gameText.color = Color.red;
+                    }
+                    gameText.text += "RectionTime:" + (trialStartTime - System.DateTime.Now).Milliseconds.ToString();
+                    _gameState = GameState.WAITING_NEXT_TRIAL;
+                }
                 break;
             case GameState.WAITING_NEXT_TRIAL:
                 if (currentTrial > totalTrials)
@@ -47,6 +75,7 @@ public class GameController : MonoBehaviour {
                     string colorStr = colors[Random.Range(0, colors.Length)];
                     gameText.color = parseColor(colorStr);
                     _gameState = GameState.WAITING_FOR_COLOR;
+                    trialStartTime = System.DateTime.Now;
                     break;
                 }
                 break;
