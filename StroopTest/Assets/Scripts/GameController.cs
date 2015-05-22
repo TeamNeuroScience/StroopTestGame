@@ -18,18 +18,30 @@ public class GameController : MonoBehaviour {
     private Text gameText;
     private System.DateTime trialStartTime; //Start time for a given trial. Used to measure reaction time
 
+    private GameObject menuCanvas, gameCanvas;
+
     private enum GameState
     {
-        WAITING_FOR_COLOR, WAITING_NEXT_TRIAL, TEST_COMPLETE
+        WAITING_FOR_COLOR, WAITING_NEXT_TRIAL, TEST_COMPLETE, INACTIVE
     }
 
     GameState _gameState;
+
+    void Awake()
+    {
+        
+    }
 
 	// Use this for initialization
 	void Start () {
         gameText = GameObject.Find("GameText").GetComponent<Text>();
         trials = new Trial[totalTrials];
-	}
+        menuCanvas = GameObject.Find("MainMenuCanvas");
+        menuCanvas.SetActive(true);
+        gameCanvas = GameObject.Find("GameCanvas");
+        gameCanvas.SetActive(false);
+        _gameState = GameState.INACTIVE;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -80,6 +92,8 @@ public class GameController : MonoBehaviour {
                 }
                 break;
             case GameState.TEST_COMPLETE:
+                break;
+            case GameState.INACTIVE:
                 break;
             default:
                 break;
