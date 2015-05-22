@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
 
     private enum GameState
     {
-        WAITING_FOR_COLOR, WAITING_NEXT_TRIAL, TEST_COMPLETE, INACTIVE
+        WAITING_FOR_ANSWER, WAITING_NEXT_TRIAL,TEST_BEGINS, TEST_COMPLETE, INACTIVE
     }
 
     GameState _gameState;
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         switch (_gameState)
         {
-            case GameState.WAITING_FOR_COLOR:
+            case GameState.WAITING_FOR_ANSWER:
                 bool isCorrect = false;
                 bool receivedInput = false;
                 if (Input.GetButton("red"))
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour {
                     gameText.text = colors[Random.Range(0, colors.Length)];
                     string colorStr = colors[Random.Range(0, colors.Length)];
                     gameText.color = parseColor(colorStr);
-                    _gameState = GameState.WAITING_FOR_COLOR;
+                    _gameState = GameState.WAITING_FOR_ANSWER;
                     trialStartTime = System.DateTime.Now;
                     break;
                 }
@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour {
     {
         System.Array.Clear(trials, 0, totalTrials);
         gameText.GetComponent<Text>().text = "";
-        _gameState = GameState.WAITING_FOR_COLOR;
+        _gameState = GameState.WAITING_FOR_ANSWER;
         currentTrial = 0;
     }
 
