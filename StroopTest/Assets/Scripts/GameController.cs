@@ -15,6 +15,13 @@ public class GameController : MonoBehaviour {
     private Trial[] trials;
     private GameObject gameText;
 
+    private enum GameStatus
+    {
+        WAITING_FOR_COLOR, WAITING_NEXT_TRIAL, TEST_COMPLETE
+    }
+
+    GameStatus gameStatus;
+
 	// Use this for initialization
 	void Start () {
         gameText = GameObject.Find("GameText");
@@ -30,6 +37,7 @@ public class GameController : MonoBehaviour {
     {
         System.Array.Clear(trials, 0, totalTrials);
         gameText.GetComponent<Text>().text = "";
+        gameStatus = GameStatus.WAITING_FOR_COLOR;
     }
 
 	//Functions to fade user interface in and out.
