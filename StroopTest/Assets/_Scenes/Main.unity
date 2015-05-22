@@ -973,17 +973,18 @@ MonoBehaviour:
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=red>S</color><color=yellow>t</color><color=green>r</color>oop Test
+  m_Text: <color=red>S</color><color=yellow>T</color><color=green>R</color><color=red>O</color><color=red>O</color><color=green>P</color>
+    <color=white>Test</color>
 --- !u!222 &1979914843
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1004,6 +1005,6 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -7, y: 186}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -3, y: 186}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: .5, y: .5}
