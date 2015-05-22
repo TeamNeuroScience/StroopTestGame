@@ -6,6 +6,7 @@ public struct Trial
 {
     float reactionTime;
     int trialNumber;
+    bool isSameWord; //Indicates whether word matches the color
 }
 
 public class GameController : MonoBehaviour {
