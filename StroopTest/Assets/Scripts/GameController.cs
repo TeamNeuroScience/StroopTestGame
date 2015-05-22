@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour {
 
 
             case GameState.WAITING_NEXT_TRIAL:
-                if (currentTrial > totalTrials)
+                if (currentTrial + 1 > totalTrials)
                 {
                     _gameState = GameState.TEST_COMPLETE;
                     break;
