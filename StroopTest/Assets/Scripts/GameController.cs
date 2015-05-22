@@ -109,7 +109,9 @@ public class GameController : MonoBehaviour {
                 break;
 
             case GameState.TEST_BEGINS:
-
+                //Set up initial game text
+                gameText.text = "Press space to begin!";
+                _gameState = GameState.WAITING_NEXT_TRIAL;
                 break;
             case GameState.TEST_COMPLETE:
                 break;
@@ -135,7 +137,7 @@ public class GameController : MonoBehaviour {
     {
         System.Array.Clear(trials, 0, totalTrials);
         gameText.GetComponent<Text>().text = "";
-        _gameState = GameState.WAITING_FOR_ANSWER;
+        _gameState = GameState.TEST_BEGINS;
         currentTrial = 0;
     }
 
@@ -143,7 +145,7 @@ public class GameController : MonoBehaviour {
     {
         StartCoroutine(fadeIn(gameCanvas, 2.0f));
         StartCoroutine(fadeOut(menuCanvas, 2.0f));
-        _gameState = GameState.WAITING_NEXT_TRIAL;
+        setUpGame();
     }
 
 	//Functions to fade user interface in and out.
