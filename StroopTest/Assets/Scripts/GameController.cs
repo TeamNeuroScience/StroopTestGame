@@ -48,21 +48,25 @@ public class GameController : MonoBehaviour {
         switch (_gameState)
         {
             case GameState.WAITING_FOR_COLOR:
-                string inputColor = "";
+                bool isCorrect = false;
+                bool receivedInput = false;
                 if (Input.GetButton("red"))
                 {
-                    inputColor = "red";
+                    receivedInput = true;
+                    isCorrect = gameText.color == Color.red;
                 } else if (Input.GetButton("green"))
                 {
-                    inputColor = "green";
+                    receivedInput = true;
+                    isCorrect = gameText.color == Color.green;
                 }
                  else if (Input.GetButton("blue"))
                 {
-                    inputColor = "blue";
+                    receivedInput = true;
+                    isCorrect = gameText.color == Color.blue;
                 }
-                if (inputColor != "")
+                if (receivedInput)
                 {
-                    if (inputColor == gameText.color.ToString())
+                    if (isCorrect)
                     {
                         gameText.text = "Correct!\n";
                         gameText.color = Color.green;
@@ -72,7 +76,8 @@ public class GameController : MonoBehaviour {
                         gameText.text = "Incorrect!\n";
                         gameText.color = Color.red;
                     }
-                    gameText.text += "RectionTime:" + (trialStartTime - System.DateTime.Now).Milliseconds.ToString();
+                    //Show reaction time as an integer of miliseconds that passed since the beginning of the trial
+                    gameText.text += "RectionTime:" + ((int)((System.DateTime.Now - trialStartTime).TotalMilliseconds)).ToString() + " ms";
                     _gameState = GameState.WAITING_NEXT_TRIAL;
                 }
                 break;
