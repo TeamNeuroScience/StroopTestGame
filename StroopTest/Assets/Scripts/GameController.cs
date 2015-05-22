@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public struct Trial
 {
@@ -10,10 +11,14 @@ public struct Trial
 public class GameController : MonoBehaviour {
 
     public string[] colors;
+    public int totalTrials;
+    private Trial[] trials;
+    private GameObject gameText;
 
 	// Use this for initialization
 	void Start () {
-	
+        gameText = GameObject.Find("GameText");
+        trials = new Trial[totalTrials];
 	}
 	
 	// Update is called once per frame
@@ -21,6 +26,11 @@ public class GameController : MonoBehaviour {
 	
 	}
 
+    private void setUpGame()
+    {
+        System.Array.Clear(trials, 0, totalTrials);
+        gameText.GetComponent<Text>().text = "";
+    }
 
 	//Functions to fade user interface in and out.
 	IEnumerator fadeIn(GameObject obj, float speed) {
