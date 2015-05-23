@@ -2453,8 +2453,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 956433427}
-        m_MethodName: onClickExit
+      - m_Target: {fileID: 147706596}
+        m_MethodName: onClickMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
