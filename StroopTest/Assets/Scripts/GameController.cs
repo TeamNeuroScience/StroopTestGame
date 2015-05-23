@@ -16,10 +16,10 @@ public class GameController : MonoBehaviour {
     public int totalTrials;
     private Trial[] trials;
     private int currentTrial;
-    private Text gameText;
+    private Text gameText, averageResultsText;
     private System.DateTime trialStartTime; //Start time for a given trial. Used to measure reaction time
 
-    private GameObject menuCanvas, gameCanvas;
+    private GameObject menuCanvas, gameCanvas, resultsCanvas;
 
     private enum GameState
     {
@@ -36,12 +36,16 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameText = GameObject.Find("GameText").GetComponent<Text>();
+        averageResultsText = GameObject.Find("AverageResultsText").GetComponent<Text>();
         trials = new Trial[totalTrials];
         menuCanvas = GameObject.Find("MainMenuCanvas");
         menuCanvas.SetActive(true);
         gameCanvas = GameObject.Find("GameCanvas");
         gameCanvas.SetActive(false);
+        resultsCanvas = GameObject.Find("ResultsCanvas");
+        resultsCanvas.SetActive(false);
         _gameState = GameState.INACTIVE;
+
     }
 	
 	// Update is called once per frame
@@ -114,6 +118,12 @@ public class GameController : MonoBehaviour {
                 _gameState = GameState.WAITING_NEXT_TRIAL;
                 break;
             case GameState.TEST_COMPLETE:
+                StartCoroutine(fadeOut(gameCanvas, 2.0f));
+                StartCoroutine(fadeIn(resultsCanvas, 2.0f));
+                averageResultsText.text = "Correctness percentage: " + GetCorrectnessPercentage().ToString("0.00") + "%\n" +
+                    "Average reaction time: " + GetAverageReaction().ToString() + "ms" ;
+
+                _gameState = GameState.INACTIVE;
                 break;
 
 
