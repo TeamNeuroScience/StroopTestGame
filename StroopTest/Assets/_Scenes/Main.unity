@@ -1217,8 +1217,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Controls:\n<color=red>Red: D</color>   \t<color=black>Black: G</color>
-    \  \t<color=blue>Blue: L</color>\nNext trial/Continue: Space"
+  m_Text: "Controls:\n<color=red>Red: h</color>   \t<color=black>Black: j</color>
+    \  \t<color=blue>Blue: k</color>\nNext trial/Continue: Space"
 --- !u!222 &673224170
 CanvasRenderer:
   m_ObjectHideFlags: 0
