@@ -148,7 +148,6 @@ public class GameController : MonoBehaviour
                 StartCoroutine(fadeIn(resultsCanvas, 2.0f));
                 averageResultsText.text = "Correctness percentage: " + GetCorrectnessPercentage().ToString("0.00") + "%\n" +
                     "Average reaction time: " + GetAverageReaction().ToString() + "ms";
-                ExportCVS();
                 _gameState = GameState.INACTIVE;
                 break;
 

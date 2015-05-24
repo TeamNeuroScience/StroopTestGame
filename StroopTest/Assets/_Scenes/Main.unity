@@ -2143,7 +2143,7 @@ GameObject:
   - 114: {fileID: 1558374236}
   - 114: {fileID: 1558374235}
   m_Layer: 5
-  m_Name: ResultsToMenuButton 1
+  m_Name: ExportResults
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2206,8 +2206,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 956433427}
-        m_MethodName: onClickExit
+      - m_Target: {fileID: 147706596}
+        m_MethodName: onClickExportResults
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
