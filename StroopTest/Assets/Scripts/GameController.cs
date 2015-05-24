@@ -148,7 +148,7 @@ public class GameController : MonoBehaviour
                 StartCoroutine(fadeIn(resultsCanvas, 2.0f));
                 averageResultsText.text = "Correctness percentage: " + GetCorrectnessPercentage().ToString("0.00") + "%\n" +
                     "Average reaction time: " + GetAverageReaction().ToString() + "ms";
-
+                ExportCVS();
                 _gameState = GameState.INACTIVE;
                 break;
 
@@ -200,6 +200,26 @@ public class GameController : MonoBehaviour
         gameText.GetComponent<Text>().text = "";
         _gameState = GameState.TEST_BEGINS;
         currentTrial = 0;
+    }
+
+    private void ExportCVS()
+    {
+        string path = @"E:\test.csv";
+        string output = "Average rection time:," + GetAverageReaction() + "ms\n" +
+            "Correctness Perfentage:," + GetCorrectnessPercentage().ToString("0.00") + "%\n"
+        + "Trial#,congruency,correctness,reactiontime\n";
+        foreach (Trial trial in trials)
+        {
+            output += trial.trialNumber.ToString() + ",";
+            output += trial.isSameWordAsColor ? "congruent," : "incongruent,";
+            output += trial.isCorrect ? "correct," : "incorrect,";
+            output += trial.reactionTime.ToString() + "ms\n";
+        }
+        File.WriteAllText(path, output);
+    }
+    public void onClickExportResults()
+    {
+        ExportCVS();
     }
 
     public void onClickNewTest()
