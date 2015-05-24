@@ -12,8 +12,11 @@ public struct Trial
 
 public class GameController : MonoBehaviour {
 
+    private static GameController _instance;
+
     public string[] colors;
     public int totalTrials;
+    public float trialDelay = 0.5f; //Delay in seconds from pressing space to the next trial
     private Trial[] trials;
     private int currentTrial;
     private Text gameText, averageResultsText;
@@ -30,7 +33,12 @@ public class GameController : MonoBehaviour {
 
     void Awake()
     {
-        
+        _instance = this;
+    }
+
+    public GameController getInstance()
+    {
+        return _instance ? _instance : new GameController();
     }
 
 	// Use this for initialization
@@ -112,11 +120,13 @@ public class GameController : MonoBehaviour {
                 }
                 break;
 
+            //When the game starts, set up initial game text 
             case GameState.TEST_BEGINS:
-                //Set up initial game text
                 gameText.text = "Press space to begin!";
                 _gameState = GameState.WAITING_NEXT_TRIAL;
                 break;
+
+                //When the test is complete, move onto the results canvas
             case GameState.TEST_COMPLETE:
                 StartCoroutine(fadeOut(gameCanvas, 2.0f));
                 StartCoroutine(fadeIn(resultsCanvas, 2.0f));
