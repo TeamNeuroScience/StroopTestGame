@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
 
     public string[] colors;
     public int totalTrials;
+    public int totalCongruent;
+    private int congruentLeft;
     public float trialDelay = 0.5f; //Delay in seconds from pressing space to the next trial
     private float trialDelayStart;
     private Trial[] trials;
@@ -128,12 +130,7 @@ public class GameController : MonoBehaviour
             case GameState.WAITING_TRIAL_DELAY:
                 if (Time.time - trialDelayStart > trialDelay)
                 {
-                    gameText.text = colors[Random.Range(0, colors.Length)];
-                    string colorStr = colors[Random.Range(0, colors.Length)];
-                    gameText.color = parseColor(colorStr);
-                    _gameState = GameState.WAITING_FOR_ANSWER;
-                    trialStartTime = System.DateTime.Now;
-                    trials[currentTrial].isCongruent = gameText.text == colorStr;
+                    setUpTrial();
 
                 }
                 break;
@@ -201,6 +198,36 @@ public class GameController : MonoBehaviour
         gameText.GetComponent<Text>().text = "";
         _gameState = GameState.TEST_BEGINS;
         currentTrial = 0;
+        congruentLeft = totalCongruent;
+    }
+
+    //Set up the next trial
+    //Randomly determine between congruent and incongruent trial
+    //The chance of a congruent trial depends on the ratio of total congruent and incongruent trials (to make it seem natural)
+    //Trials are forced to be incongruent if we exceed the limit of either congruent or incongruent trials
+    private void setUpTrial()
+    {
+        string text, colorStr = "";
+        if (Random.Range(0, 1.01f) > (float)totalCongruent /(float) totalTrials && congruentLeft + currentTrial != totalTrials || congruentLeft == 0)// || congruentLeft == totalTrials - currentTrial)
+        {
+            text = colors[Random.Range(0, colors.Length)];
+            colorStr = colors[Random.Range(0, colors.Length)];
+            while (colorStr == text)
+            {
+                colorStr = colors[Random.Range(0, colors.Length)];
+            }
+
+        }
+        else
+        {
+            text = colorStr = colors[Random.Range(0, colors.Length)];
+            congruentLeft--;
+        }
+        gameText.text = text;
+        gameText.color = parseColor(colorStr);
+        _gameState = GameState.WAITING_FOR_ANSWER;
+        trialStartTime = System.DateTime.Now;
+        trials[currentTrial].isCongruent = gameText.text == colorStr;
     }
 
     private void ExportCVS()

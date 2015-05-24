@@ -252,7 +252,8 @@ MonoBehaviour:
   - red
   - black
   - blue
-  totalTrials: 5
+  totalTrials: 10
+  totalCongruent: 4
   trialDelay: .5
 --- !u!4 &147706597
 Transform:
