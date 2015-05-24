@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     private float trialDelayStart;
     private Trial[] trials;
     private int currentTrial;
-    private Text gameText, averageResultsText;
+    private Text gameText, averageResultsText, exportStatusText;
     private System.DateTime trialStartTime; //Start time for a given trial. Used to measure reaction time
 
     private GameObject menuCanvas, gameCanvas, resultsCanvas;
@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour
     {
         gameText = GameObject.Find("GameText").GetComponent<Text>();
         averageResultsText = GameObject.Find("AverageResultsText").GetComponent<Text>();
+        exportStatusText = GameObject.Find("ExportStatus").GetComponent<Text>();
         trials = new Trial[totalTrials];
         menuCanvas = GameObject.Find("MainMenuCanvas");
         menuCanvas.SetActive(true);
@@ -214,7 +215,15 @@ public class GameController : MonoBehaviour
             output += trial.isCorrect ? "correct," : "incorrect,";
             output += trial.reactionTime.ToString() + "ms\n";
         }
-        File.WriteAllText(path, output);
+        try {
+            File.WriteAllText(path, output);
+            exportStatusText.text = "Export successful!";
+        }
+        catch (System.Exception e)
+        {
+            exportStatusText.text = "Export FAILED!\n";
+            exportStatusText.text += e.Message;
+        }
     }
     public void onClickExportResults()
     {
