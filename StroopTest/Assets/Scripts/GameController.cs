@@ -7,7 +7,7 @@ public struct Trial
 {
     public int reactionTime; //Reaction time in miliseconds
     public int trialNumber;
-    public bool isSameWordAsColor; //Indicates whether word matches the color
+    public bool isCongruent; //Indicates whether word matches the color
     public bool isCorrect;
 }
 
@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
                     gameText.color = parseColor(colorStr);
                     _gameState = GameState.WAITING_FOR_ANSWER;
                     trialStartTime = System.DateTime.Now;
-                    trials[currentTrial].isSameWordAsColor = gameText.text == colorStr;
+                    trials[currentTrial].isCongruent = gameText.text == colorStr;
 
                 }
                 break;
@@ -211,7 +211,7 @@ public class GameController : MonoBehaviour
         foreach (Trial trial in trials)
         {
             output += trial.trialNumber.ToString() + ",";
-            output += trial.isSameWordAsColor ? "congruent," : "incongruent,";
+            output += trial.isCongruent ? "congruent," : "incongruent,";
             output += trial.isCorrect ? "correct," : "incorrect,";
             output += trial.reactionTime.ToString() + "ms\n";
         }
