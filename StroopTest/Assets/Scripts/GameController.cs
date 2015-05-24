@@ -10,13 +10,15 @@ public struct Trial
     public bool isCorrect;
 }
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     private static GameController _instance;
 
     public string[] colors;
     public int totalTrials;
     public float trialDelay = 0.5f; //Delay in seconds from pressing space to the next trial
+    private float trialDelayStart;
     private Trial[] trials;
     private int currentTrial;
     private Text gameText, averageResultsText;
@@ -26,7 +28,7 @@ public class GameController : MonoBehaviour {
 
     private enum GameState
     {
-        WAITING_FOR_ANSWER, WAITING_NEXT_TRIAL,TEST_BEGINS, TEST_COMPLETE, INACTIVE
+        WAITING_FOR_ANSWER, WAITING_NEXT_TRIAL, WAITING_TRIAL_DELAY, TEST_BEGINS, TEST_COMPLETE, INACTIVE
     }
 
     GameState _gameState;
@@ -41,8 +43,9 @@ public class GameController : MonoBehaviour {
         return _instance ? _instance : new GameController();
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         gameText = GameObject.Find("GameText").GetComponent<Text>();
         averageResultsText = GameObject.Find("AverageResultsText").GetComponent<Text>();
         trials = new Trial[totalTrials];
@@ -55,9 +58,10 @@ public class GameController : MonoBehaviour {
         _gameState = GameState.INACTIVE;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         switch (_gameState)
         {
             case GameState.WAITING_FOR_ANSWER:
@@ -67,12 +71,13 @@ public class GameController : MonoBehaviour {
                 {
                     receivedInput = true;
                     isCorrect = gameText.color == Color.red;
-                } else if (Input.GetButton("green"))
+                }
+                else if (Input.GetButton("green"))
                 {
                     receivedInput = true;
                     isCorrect = gameText.color == Color.green;
                 }
-                 else if (Input.GetButton("blue"))
+                else if (Input.GetButton("blue"))
                 {
                     receivedInput = true;
                     isCorrect = gameText.color == Color.blue;
@@ -109,29 +114,39 @@ public class GameController : MonoBehaviour {
                     _gameState = GameState.TEST_COMPLETE;
                     break;
                 }
-                if (Input.GetButton("NextTrial")) {
+                if (Input.GetButton("NextTrial"))
+                {
+                    trialDelayStart = Time.time;
+                    _gameState = GameState.WAITING_TRIAL_DELAY;
+                    gameText.text = "";
+                    break;
+                }
+                break;
+
+            case GameState.WAITING_TRIAL_DELAY:
+                if (Time.time - trialDelayStart > trialDelay)
+                {
                     gameText.text = colors[Random.Range(0, colors.Length)];
                     string colorStr = colors[Random.Range(0, colors.Length)];
                     gameText.color = parseColor(colorStr);
                     _gameState = GameState.WAITING_FOR_ANSWER;
                     trialStartTime = System.DateTime.Now;
                     trials[currentTrial].isSameWordAsColor = gameText.text == colorStr;
-                    break;
+
                 }
                 break;
-
             //When the game starts, set up initial game text 
             case GameState.TEST_BEGINS:
                 gameText.text = "Press space to begin!";
                 _gameState = GameState.WAITING_NEXT_TRIAL;
                 break;
 
-                //When the test is complete, move onto the results canvas
+            //When the test is complete, move onto the results canvas
             case GameState.TEST_COMPLETE:
                 StartCoroutine(fadeOut(gameCanvas, 2.0f));
                 StartCoroutine(fadeIn(resultsCanvas, 2.0f));
                 averageResultsText.text = "Correctness percentage: " + GetCorrectnessPercentage().ToString("0.00") + "%\n" +
-                    "Average reaction time: " + GetAverageReaction().ToString() + "ms" ;
+                    "Average reaction time: " + GetAverageReaction().ToString() + "ms";
 
                 _gameState = GameState.INACTIVE;
                 break;
@@ -144,11 +159,12 @@ public class GameController : MonoBehaviour {
             default:
                 break;
         }
-	
-	}
+
+    }
 
     //Get average reaction time. Precondition: all tests have been complete
-    private float GetAverageReaction() {
+    private float GetAverageReaction()
+    {
         int totalReaction = 0;
         foreach (Trial trial in trials)
         {
@@ -160,9 +176,10 @@ public class GameController : MonoBehaviour {
         return totalReaction / totalTrials;
     }
 
-    private float GetCorrectnessPercentage() {
+    private float GetCorrectnessPercentage()
+    {
         int correctCount = 0;
-        foreach(Trial trial in trials)
+        foreach (Trial trial in trials)
         {
             if (trial.isCorrect) correctCount++;
         }
@@ -197,28 +214,32 @@ public class GameController : MonoBehaviour {
         StartCoroutine(fadeIn(menuCanvas, 2.0f));
     }
 
-	//Functions to fade user interface in and out.
-	IEnumerator fadeIn(GameObject obj, float speed) {
-		float increment;
-		obj.SetActive(true);
-		CanvasGroup cv = obj.GetComponent<CanvasGroup>();
-		while (cv.alpha < 1) {
-			increment = speed * Time.deltaTime;
-			if (cv.alpha + increment > 1) cv.alpha = 1;
-			else cv.alpha += speed * Time.deltaTime;
-			yield return null;
-		}
-	}
+    //Functions to fade user interface in and out.
+    IEnumerator fadeIn(GameObject obj, float speed)
+    {
+        float increment;
+        obj.SetActive(true);
+        CanvasGroup cv = obj.GetComponent<CanvasGroup>();
+        while (cv.alpha < 1)
+        {
+            increment = speed * Time.deltaTime;
+            if (cv.alpha + increment > 1) cv.alpha = 1;
+            else cv.alpha += speed * Time.deltaTime;
+            yield return null;
+        }
+    }
 
-	IEnumerator fadeOut(GameObject obj, float speed) {
-		float increment;
-		CanvasGroup cv = obj.GetComponent<CanvasGroup>();
-		while (cv.alpha > 0) {
-			increment = speed * Time.deltaTime;
-			if (cv.alpha - increment < 0) cv.alpha = 0;
-			else cv.alpha -= speed * Time.deltaTime;
-			yield return null;
-		}
-		obj.SetActive(false);
-	}
+    IEnumerator fadeOut(GameObject obj, float speed)
+    {
+        float increment;
+        CanvasGroup cv = obj.GetComponent<CanvasGroup>();
+        while (cv.alpha > 0)
+        {
+            increment = speed * Time.deltaTime;
+            if (cv.alpha - increment < 0) cv.alpha = 0;
+            else cv.alpha -= speed * Time.deltaTime;
+            yield return null;
+        }
+        obj.SetActive(false);
+    }
 }

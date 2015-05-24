@@ -253,6 +253,7 @@ MonoBehaviour:
   - green
   - blue
   totalTrials: 5
+  trialDelay: .5
 --- !u!4 &147706597
 Transform:
   m_ObjectHideFlags: 0
