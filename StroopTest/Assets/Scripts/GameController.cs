@@ -72,17 +72,17 @@ public class GameController : MonoBehaviour
                 if (Input.GetButton("red"))
                 {
                     receivedInput = true;
-                    isCorrect = gameText.color == Color.red;
+                    isCorrect = gameText.color == parseColor("red");
                 }
                 else if (Input.GetButton("black"))
                 {
                     receivedInput = true;
-                    isCorrect = gameText.color == Color.green;
+                    isCorrect = gameText.color == parseColor("black");
                 }
                 else if (Input.GetButton("blue"))
                 {
                     receivedInput = true;
-                    isCorrect = gameText.color == Color.blue;
+                    isCorrect = gameText.color == parseColor("blue");
                 }
                 if (receivedInput)
                 {
@@ -191,6 +191,7 @@ public class GameController : MonoBehaviour
     {
         if (color == "red") { return Color.red; }
         else if (color == "green") { return Color.green; }
+        else if (color == "black") { return Color.black; }
         return Color.blue;
     }
 
