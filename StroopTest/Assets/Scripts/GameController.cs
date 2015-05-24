@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.IO;
 
 public struct Trial
 {
@@ -72,7 +73,7 @@ public class GameController : MonoBehaviour
                     receivedInput = true;
                     isCorrect = gameText.color == Color.red;
                 }
-                else if (Input.GetButton("green"))
+                else if (Input.GetButton("black"))
                 {
                     receivedInput = true;
                     isCorrect = gameText.color == Color.green;

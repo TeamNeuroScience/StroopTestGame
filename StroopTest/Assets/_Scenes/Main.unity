@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colors:
   - red
-  - green
+  - black
   - blue
   totalTrials: 5
   trialDelay: .5
@@ -1216,7 +1216,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Controls:\n<color=red>Red: D</color>   \t<color=green>Green: G</color>
+  m_Text: "Controls:\n<color=red>Red: D</color>   \t<color=black>Black: G</color>
     \  \t<color=blue>Blue: L</color>\nNext trial/Continue: Space"
 --- !u!222 &673224170
 CanvasRenderer:
@@ -1508,7 +1508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -1521,7 +1521,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Green
+  m_Text: Black
 --- !u!222 &899563093
 CanvasRenderer:
   m_ObjectHideFlags: 0
